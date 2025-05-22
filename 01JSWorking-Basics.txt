@@ -1,0 +1,71 @@
+as soon as we run js GEC created firstly
+(Global Execution Context), GEC created only 1 time
+
+GEC divide into mainly two part then
+1. Memory Allocation Phase(MAP)
+2. Thread Phase / Execution Phase (EXP) / Code Phase
+
+once GEC is created js reads all the code in file and then move those variables and functions to MAP
+
+Ex- 
+
+console.log("a")    //output- undefined | in GEC var a created but data will be added in Execution Phase
+
+var a = "I'm a Sweet Boy"
+
+JS is a single threaded logic based programming language so after GEC -> MAP -> EXP
+it simply mean all Variables & functions moved to MAP once done then only it goes to EXP where each
+and every-Single line, line-by-line executed.
+
+Global Execution Context    //once created only then below
+--------------------------------------  
+  Memory Phase  |   Execution Phase         // after completion of MAP then move to EXP
+                |
+     Var a =    |   console.log("a")        //it will try to get the value from MAP where it will find
+     undefined  |                           //  a is undefined so it will print undefined because we 
+                |                           //  write  console first and in MAP a = was undefined      
+                |  
+    var a = 10  |                           //now only value will be assigned to a because last line was
+                |                           // assigning the string value in code base.
+--------------------------------------
+
+// once all execution take place GEC will be removed/deleted because task was performed successfully
+
+var b = 20;                 // 1st line code
+console.log("b");
+var b = 15;
+
+Global Execution Context - Created
+--------------------------------------  
+  Memory Phase  |   Execution Phase         
+                |                           // we have only 1 variable b so it will be created in MAP
+                |                           //  and then move to EXP phase
+  b = undefined |   b = 20;                 // where b will be assigned value 20 due to 1st line code      
+                |                           
+  b = 20;       |                          // in MAP updated value assigned 
+                |   console.log("b");      // it will search b value from MAP if find it will print
+                |                          //  log with value b else if not find the value of b it will
+                |   20  //output           //   shown undefined
+                |                       
+                |   var b = 15;            // it will assign the value of b = 15 and moved to MAP
+  b = 15;       |             
+--------------------------------------
+// all code execution completion was successfully now GEC will be deleted
+
+** Hoisting
+
+// we decleared the variable and functions and after GEC we observed that all variables and functions
+// was moved to Memory Allocation Phase so this process is know as hoisting.
+
+Hoisting is a function or behaviour in js  where the decleartion of functions and variables move to
+the top of the scope they where defined in
+
+** var can be hoisted & let const too but let & const cannot be used due to Temporal Dead Zone(TDZ)
+ 
+
+console.log("x") // output cannot access x before initialization
+let x= "Apple i love to eat"
+
+
+Error - var Case- undefined
+Error let & const Case - cannot access x before initialization
