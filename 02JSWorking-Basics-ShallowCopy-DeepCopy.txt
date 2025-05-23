@@ -1,0 +1,53 @@
+Usually in general we have 2 ways to make a copy
+1. spread operator
+2. object.assign
+
+shallowCopy - A shallow copy in JavaScript creates a new object or array, but any nested
+              objects or arrays inside it are still linked to the original, so changes to those
+              nested values affect both copies. Only the top-level values are copied independently;
+              deeper levels share the same references.
+
+deepCopy - A deep copy in JavaScript makes a completely new copy of an object, including all nested
+           objects or arrays, so changes to the copy do not affect the original at any level.
+           This is useful for working with complex or nested data, and can be done using methods like
+           JSON.parse(JSON.stringify(object)) or the structuredClone() function.
+
+let obj = {
+    name: 'nizam',
+    address: {city : 'dhanbad'}
+};
+
+Ex- for shallowCopy
+
+let shallowCopy = object.assign({}, obj);       //object.assign
+// output {name : 'nizam', address : {city: 'dhanbad'} }
+
+
+let shallowCopy = { ...obj };                      //spread operator
+// output {name : 'nizam', address : {city: 'dhanbad'} }
+
+obj.address.city = 'Mumbai';
+console.log(shallow.address.city)
+
+//output Mumbai  
+
+// it means shallow copy me dono place pr data change ho gya, so basically when we changed
+// the value in original data shallow copy has only the reference of it and thats why when original data
+// is changed same was reflected in shallow copy too. (Memory reference is same for both from MAP)
+// like mirror if we remove something in front of mirror it will be disappeared from mirror as well
+
+Ex- for deepCopy
+
+let deepCopy = JSON.parse( JSON.stringify(obj) );   
+console.log(deepCopy);
+// output {"name" : "nizam", "address" : {"city": "delhi"} } 
+
+obj.address.city = 'Mumbai';
+
+console.log(deepCopy.address.city) // output dhanbad
+
+//now it is converted into new obj, it mean it has new Memory reference in MAP thats the reason even 
+// after overwriting the original obj address still it does'nt shown any impact in deepCopy
+// like both had purchased there seperate bikes , if the obj has no fuel in his bike, it doesn't
+// have a impact on deepCopy because both bike has different fuel container and fuel was empty only
+// on obj not in deepCopy.
