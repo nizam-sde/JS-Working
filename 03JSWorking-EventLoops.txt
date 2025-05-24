@@ -1,0 +1,49 @@
+mein ek resturant gaya tha khana khane, sari tables chair accordingly structured way me placed thi
+mein unme se ek table pr baitha kuch aur log bhi apni apni table pr baithe the, pr us resturant me
+waiter sirf ek he tha ek ek kr ke sare tables pr jata aur order leta fir, band kamre ke piche 
+jaha chef hai usko food order deta taki customers ko desired food result mil sake but,  order 
+bhi sabko ek ek kr ke mil rha tha kyun ki jaise jaise banta gya waiter to ek he tha to jinka 
+jis time pr banta gaya waise waise wo order lata raha.
+
+waiter yaha pr JavaScript tha single threaded logic based programing language jo ki har event loop ko
+line by line attend and execute krta gya
+
+ab chef to khana banane me samay lagayenge to wo asyncronous nature aur realated chize aage discuss hongi
+along with event loop.
+
+JS can only sequentially synchronous operations can execute
+
+There are TWO sides Client-Side & Server-Side 
+in Client-side we have browser to handle that for us but browser does know programming languages
+so to entertain that in browser we have V8 engine of js pre-installed in it for take care of js event
+handelling, js provide runtime enviroment if we want to run it on client side.
+
+Diagram of How code execution takes place in JavaScript
+
+-----------------------------------------
+|       | JS ENGINE |                   |                        ---------------------------------
+|        -----------                    |                        |       -------------------     |
+|                                       |                        |       |WebAPI / Browser |     |
+|   JIT COMPILER                        |                        |       -------------------     |
+|                                       |    SYNC                |                               |
+|    ---------        ------------      | ------------------>    |                               |
+|    | Heap  |        |  CALL    |      |      ASYNC             |                               |
+|    | Memory|        |  STACK   |      | ------------------>    |                               |
+|    |       |        |          |      |                        |                               |
+|    |       |        |          |      |                        |                               |
+|    |       |        |          |      |                        |                               |
+|    |       |        |          |      |                        ---------------------------------
+|    |       | ⬅➡    -----------      |                                ⬇                       ⬇
+|    ---------              ^           |                          --------------            -----------  
+|                           |           |                          | Micro Task |            |  Task   |      
+|                           |           |                          |    Queue   |            |   Queue |
+|  Garbage Collection       |           |                          |------------|            -----------
+-----------------------------------------                                ⬇                        ⬇
+                            ⬆                                            ⬇                        ⬇
+                            ⬆                                            ⬇                        ⬇
+                            ⬆                                            ⬇                        ⬇   
+                            ⬆           -----------------                ⬇                        ⬇
+                            ⬆           |               |⬅⬅⬅➡➡⬅⬅⬅⬅⬅⬅⬅⬅⬅⬅⬅⬅⬅⬅⬅⬅⬅⬅
+                            ⬅⬅⬅⬅⬅⬅ |    Event      |
+                                        |    Loop ♾➿  |
+                                        -----------------
