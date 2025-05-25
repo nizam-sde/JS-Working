@@ -1,0 +1,74 @@
+console.log("Global Execution Context Starts");
+
+var globalVariable = "I am a global variable";
+
+function globalFunction() {
+    console.log("Inside global Function");
+}
+
+console.log(globalVariable);
+globalFunction()
+
+console.log("GEC Ends here");
+
+// output 
+
+Global Execution Context Starts
+I am a global variable
+Inside global Function
+GEC Ends here
+
+// lets see map in proper visual example how code executes
+
+---------------------------------------------------------------------------    
+  Memory Phase                          |   Execution Phase         
+                                        |                           
+ globalVariable  = undefined            |
+                                        |                  
+                                        |                          
+ globalFunction() {                     |
+ console.log("Inside global Function");}|                          
+                                        |        
+                                        |   Global Execution Context Starts                       
+                                        |   globalVariable = "I am a global variable";           
+ globalVariable = "I am a global        |
+                    variable";          |                       
+                                        |               
+                                        |   I am a global variable     
+                                        |   globalFunction()
+                                        |               Local Execution Context (LEC)
+                                        |   ------------------------------------------------
+                                        |          Memory Phase         |     Execution Phase            
+                                        |                               |
+                                        |                               |console.log("Inside global Function");
+                                        |                               |
+                                        |                               |   Inside global Function
+                                        |                               |
+                                        |                               |
+                                        |   ---------------------------------------------------
+                                        |                          
+                                        |   console.log("GEC Ends here");              
+                                        |   GEC Ends here                           
+-----------------------------------------------------------------------------  
+
+// Functions are treated as special case and for functions JS create Local Execution Phase when ever
+// we call the function for Execution
+// if in LEC there is more variables or functions insdide it same like above all variables and
+// functions will be stored in LEC but in abouve case we do not have such things thats why it will
+// log the output and then LEC will be deleted after accumplishing the code successfully.
+
+// even if we call a function before declearing the function it will give the output because as we know
+// in GEC when MAP done the function was already there so it will run the output instead throughing error
+
+// there is a catch in it look the below ex -
+
+globalFunction()
+
+var globalFunction = function(){
+    console.log("Inside global Function");
+}
+
+// in this case it was decleared as variable and we know that if we call a variable before declearing it
+// it will show undefined , and we are calling the function so it will throw error
+// globalFunction is not a function, because till now it is a variable, 
+// value will be assigned when it will reach to code line 68 then it will become a function
