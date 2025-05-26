@@ -1,0 +1,15 @@
+console.log("Script is loading .....")
+
+setTimeout(() =>{
+    console.log("This is the task from task queue (setTimeout)")
+}, 0);
+
+console.log("Script Ends here .....")
+
+// output
+
+Script is loading .....
+Script Ends here .....
+This is the task from task queue (setTimeout)
+
+// 
