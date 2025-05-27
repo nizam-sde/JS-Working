@@ -52,7 +52,7 @@ call Stack                      WebAPI
 
 ** Event Loop keeps eye on call stack & Task Queue once he recieves something from task queue 
     he pushes it on call stack and in call stack how GEC and MAP happens we already know from 
-    previous classes 02JSWorking-BasicsFunction.
+    previous classes 04JSWorking-BasicsFunction & 02JSWorking-Basics-ShallowCopy.
 
 **  Event Loop pushes on call stack only when it is empty untill then he will wait  
 
@@ -133,7 +133,7 @@ so microtask will keep running and there is no path of task queue to enter until
 empty.
 
 if microtask keep pooping out without allowing other task a chance to run, task queue will never
-get the oppoyrtunity to run its task This what we call the Starvation of tasks.
+get the oppoyrtunity to run its task This is what we call the Starvation of tasks.
 
 **solution
 
