@@ -1,0 +1,147 @@
+console.log("Script is loading .....")
+
+setTimeout(() =>{
+    console.log("This is the task from task queue (setTimeout)")
+}, 5000);
+
+console.log("Script Ends here .....")
+
+JS codes run with the help of JS Engine
+GEC shows it's working how it internally works
+
+But Call Stack is actual JS Engine - > mean any code if we want to run we have to puch it on call stack
+
+Stack properties - > 1st in last out   OR Last in 1st out
+
+
+STACK - we can Push and pop out from above
+----------------
+|     |  ^     |     1. To Execute any code we have to push in Call STACK
+|     |  |     |     2. Call Stack waits for nothing till code completion
+|     >  |     |
+|    stack     |     3. to run the code we have to push the GEC of above
+|              |        code into call stack for execution
+|              |
+|              |      and due to time delay in setTimeout and call stack
+|              |      wait for nothing it will send it in Heap instead 
+|              |      call stack
+|              |
+----------------
+
+setTimeout is a part of WebAPI, once it trigered it will start a run timer in WebAPI
+
+call Stack                      WebAPI
+----------------                ------------------------------------------
+|     |  ^     |         >------|---->  Timer                            |     
+|     |  |     |         |      |         5s      setTimeout code        |     from stack code sent to 
+|     >  |     |         |      |                                        |     WebAPI
+|    stack     |         |      |                                        |     
+|              |         |      |                                        |     
+|      > ------|---------^      |                                        |
+|      |       |                |                                        |     
+|  setTimeout  |                |                                        |     
+|  code        |                |                                        |     
+|              |                |                                     ---|-------
+----------------                ------------------------------------------      |
+     ⬆                                                                          |            
+     ⬆                                          ⬅ ⬅ ⬅ ⬅ ⬅ ⬅ ⬅ ⬅ ⬅ ⬅ ⬅ 🔻                                                                
+     ⬆                                         ⬇
+     ⬆                                        🔻
+     ⬆               🔻⬅ ⬅⬅ ⬅ ⬅ ⬅ ⬅ ⬅Task Queue // 1. Microtask Queue
+     ⬆  ⬅ ⬅ ⬅  EventLoop➿                          // 2. Task Queue        
+
+** Event Loop keeps eye on call stack & Task Queue once he recieves something from task queue 
+    he pushes it on call stack and in call stack how GEC and MAP happens we already know from 
+    previous classes 02JSWorking-BasicsFunction.
+
+**  Event Loop pushes on call stack only when it is empty untill then he will wait  
+
+
+
+// output // according to above theory
+
+Script is loading .....
+Script Ends here .....
+
+call stack will empty himself because he executed its all codes
+
+
+** queue properties - 1st in 1st out
+once the times ends or api call recieves in the WebAPI he sents the code in TASK Queue / Callback Queue
+
+// output
+This is the task from task queue (setTimeout) //finally output will be served.
+then finally the last setTimeout code from call stack will also be deleted after successful execution
+
+** even if setTimeout is set in 0 timer still it will go from stack to WebAPI to task queue to
+   EventLoop➿ and EventLoop➿ will wait for call stack to get empty once call stack becomes empty
+   then only EventLoop➿ will push the task of task queue into call stack.
+
+
+
+   Question 2
+
+   console.log("Script for question 2 loading .....")
+
+    setTimeout(() =>{
+        console.log("This is from task queue (setTimeout)")
+    }, 0);
+
+    Promise.resolve().then(() =>{
+        console.log("This is the microtask queue (Promise)")
+    })
+
+     console.log("Script End")
+
+     //output
+
+     Script for question 2 loading .....
+     Script End
+     This is the microtask queue (Promise)
+     This is from task queue (setTimeout)
+
+     ** Queue's are 2 Types 
+     1. Microtask Queue     **More importance then task queue in the eye of EventLoop➿
+     2. Task Queue
+
+
+Microtask Queue
+
+Promise 	                        .then, .catch, .finally
+queueMicrotask	                    Direct microtask scheduling
+MutationObserver	                DOM mutation callbacks
+process.nextTick (Node.js)	        Next tick callback (Node.js only)
+
+
+Task Queue 
+
+setTimeout	                        Timer callback
+setInterval	                        Repeated timer callback
+localStrorage                       basic data saving in localStrorage
+sessionStorage                      cache and session login 
+setImmediate (Node.js)	            Immediate callback (Node.js only)
+I/O callbacks (Node.js)	            File/network callbacks (Node.js)
+UI events(DOM EventListners)        Click, keypress, mouse Scroll etc.
+MessageChannel	                    postMessage callbacks
+Script execution	                <script> tags, initial code
+
+
+** Starvation
+
+imagine in microtask queue a Promise came and in that promise there are infinite no of promises inside
+so microtask will keep running and there is no path of task queue to enter untill microtask queue is 
+empty.
+
+if microtask keep pooping out without allowing other task a chance to run, task queue will never
+get the oppoyrtunity to run its task This what we call the Starvation of tasks.
+
+**solution
+
+Avoid Flooding the Microtask Queue:
+Chunk Microtasks with Macrotask Breaks:
+
+Don’t keep adding microtasks forever inside microtasks.
+
+If you have a lot of work, break it up: after processing some microtasks, 
+use setTimeout (or another task) to let the event loop run tasks from the task queue before adding
+more microtasks
