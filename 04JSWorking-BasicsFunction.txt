@@ -53,8 +53,8 @@ GEC Ends here
 
 // Functions are treated as special case and for functions JS create Local Execution Phase when ever
 // we call the function for Execution
-// if in LEC there is more variables or functions insdide it same like above all variables and
-// functions will be stored in LEC but in abouve case we do not have such things thats why it will
+// if in LEC there is more variables or functions inside it same like GEC in LEC all variable of
+// functions will be stored in LEC but in above case we do not have any variable thats why it will
 // log the output and then LEC will be deleted after accumplishing the code successfully.
 
 // even if we call a function before declearing the function it will give the output because as we know
@@ -71,4 +71,4 @@ var globalFunction = function(){
 // in this case it was decleared as variable and we know that if we call a variable before declearing it
 // it will show undefined , and we are calling the function so it will throw error
 // globalFunction is not a function, because till now it is a variable, 
-// value will be assigned when it will reach to code line 68 then it will become a function
+// value will be assigned when it will reach to code line 67 then it will become a function
