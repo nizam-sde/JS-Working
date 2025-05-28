@@ -1,0 +1,97 @@
+Objects in JavaScripts
+
+** Object literals
+
+In object literals we use curly brackets
+
+let doTask {
+    department: 'Hr',
+    role: 'Interview Scheduling',
+    target: 'recruit Immediate joiners'
+    schedule: function () {
+        console.log(" Interview Started by HR ")
+    }
+}
+
+// in object we store values in Key : value pairs
+// we can store any datatype & function inside an object 
+// we can access key's of object using . [dot] in object    
+
+console.log( doTask.department ) // output Hr
+
+
+let doTask2 {
+    department: 'Coders',
+    role: 'Programming',
+    target: 'Code the Project'
+    schedule: function () {
+        console.log(" Project is ready ")
+    }
+}
+
+** Advantage - easy and simple to Code
+** disadvantage - this does not act as a blueprint(blueprint = structure)
+                  all object has same structure but we can't use them directly all of them by one place
+                  becuase we have to use seperately.
+                  (structure to same hai but sab ke varaible name alag hai aur sabko access krne
+                   ke liye ek ek ka variable name then . laga kr access krna hoga)
+
+                   Normal Function - camelCasing
+                   // getAge(), addNums(), deleteData()
+
+                   Constructor Function - PascalCasing
+                   // GetAge(), AddNums(), DeleteData()
+
+** Constructor function are function which is responsible to create more objects (blueprint)
+
+function DoTask (department, role,target) {
+    this.department = department;
+    this.role = role;
+    this.target = target;
+}
+
+** now if we want to create object using Constructor function we can use like this
+
+const doTask1 = new DoTask('Accounts', 'Handeling Accounts', ' salary credit')
+const doTask3 = new DoTask('Law', 'Legal issues', ' Issues settlement')
+const doTask4 = new DoTask('Management', 'Company working', ' Company growth') 
+// it made easy to replicate object with blueprint for fellow developers as well as for us.
+
+
+console.log(doTask1);
+
+// output
+
+DoTask {
+    department :Accounts
+    role : Handeling Accounts
+    target : salary credit
+}
+
+** now if we have even 10,000 objects in our codebase by simply updating or deleting keys from 
+    function constructor we can get the changes in all 10,000 objects but without function
+    constructor, we have to manually keep the updation or deletion in each 10,000 objects.
+
+
+    before ES6 (EcmaScript 6)
+    1. {} 
+    2. function constructor     (depricated after ES6)
+
+    after ES6 (before ES6 there where no existence of class keyword)
+    class keyword // instead function constructor
+
+
+class DoTask{
+    constructor(department, role,target) {
+    this.department = department;
+    this.role = role;
+    this.target = target;
+    }
+}
+
+const doTask5 = new DoTask('sanatization', 'cleaning', ' Hygenic clean Rooms & floor')
+
+doTask5.target();
+
+// output 
+Hygenic clean Rooms & floor
