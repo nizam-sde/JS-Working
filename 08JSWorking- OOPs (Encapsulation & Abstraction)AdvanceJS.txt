@@ -1,0 +1,146 @@
+Procedural Programming - line by line we write code  and same line by line it will be executed.
+Functional Programming - Everything we think in the form of functions (Pure function).
+
+JavaScript allows to do all 3 type of programming.
+1. Procedural Programming
+2. Functional Programming
+3. Object Oriented Programming(OOP's)
+
+AngularJS is build based upon OOP's Concept
+ReactJS was also built based upon OOP's Concept but in last 3, 4 years it's been shifted to Functional P.
+
+OOP's & Factory Functions
+
+Four Pillars of Object Oriented Programming
+1. Encapsulation
+2. Abstraction
+3. Inheritance
+4. Polymorphism
+
+** Encapsulation-
+Encapsulation in JavaScript means putting data and the functions that work on that data together
+in one unit, like an object or class
+
+Encapsulation me data aur logic ko ek he jagah pr rakh diya but bahar se user ke pass limited
+access ya fir change krne ki permission bahar se nhi hoti yahi isko unique banati hai.
+
+                        ---------------------------------------------
+
+** Abstraction-
+Abstraction in JavaScript means hiding the complex details of how something works and showing only
+what is necessary to the user.
+For example, you can use methods like push() on an array without needing to know how they are
+implemented internall
+
+                        ---------------------------------------------
+
+** Inheritance-
+A class or object can get properties and methods from another class or object, allowing code to be
+reused and extended.
+This is done using the extends keyword for classes, or by linking objects through prototypes,
+so the child gets features from the parent
+
+                        ---------------------------------------------
+
+** Polymorphism -
+Different objects can use the same method name but behave differently when that method is called.
+For example, a draw() method can do different things depending on whether it's called on a circle
+or a rectangle object.
+
+                        ---------------------------------------------
+
+1. Procedural Programming -
+
+const userDetails = {
+    name : 'Nizam',
+    age : 21,
+    city : 'Dhanbad'
+}
+
+// by age we will be calculating their birth year
+
+new Date().getFullYear()        // output (current year) 2025
+new Date().getFullYear() - 21   // output 2004
+
+2. Functional Programming - 
+
+ function getBirthYear (age) {
+    return new Date().getFullYear() - age
+ }  // hidding the complexitie is basically known as abstraction, above is the simple ex of it.
+
+3. Object Oriented Programming(OOP's) - 
+
+ const userDetails = {
+    name : 'Nizam',
+    age : 21,
+    city : 'Dhanbad',
+    getBirthYear : function() {
+    return new Date().getFullYear() - userDetails.age
+    }
+}   
+
+// Factory Function // agar userDetails jaise 500 aur obj banani hai to code base kafi bada ban jayega
+                    // usko easy and simple krne ke liye factory function introduce hua
+
+// we took name age city as a parameter so that when user give same data it will auto stored in user obj
+
+function createUser (name, age, city) {         
+    const user = {
+        name : name,
+        age : age,
+        city : city
+    }
+
+    return user
+}
+
+createUser('Nizam', 21 , 'dhanabad');   // calling the function by giving parameter
+// output { name : 'Nizam', age : 32, city : 'dhanbad' }
+
+// but best & optimized way to write the above code is ⤵ // param aur key value dono same hai to aise likhe
+// result exact same aayega just like above code
+
+function createUser (name, age, city) {         
+    const user = {
+        name,
+        age,
+        city,
+    }
+
+    return user
+}
+
+// same line no 73 ke code ke function ko bhi is tarike se optimized code se replace kr skte hai
+ 
+    getBirthYear () {
+    return new Date().getFullYear() - userDetails.age
+    }
+
+// constructor function
+
+function createUser (name, age, city) {         
+    const user = {
+        name,
+        age,
+        city,
+        getBirthYear () {
+          return new Date().getFullYear() - userDetails.age
+        },
+    }
+
+    return user
+}
+
+const user1 = createUser('Nizam', 21 , 'dhanabad')
+const user2 = createUser('Isha', 20 , 'Aligarh')
+
+user1.getBirthYear === user2.getBirthYear // output false aayega // reason below
+
+// it mean ki jitni baar new user banega utni baar new getBirthYear bann kr memory me jagah lega jo ki
+// galat hai function ko call hum kitni baar bhi kr skte hai pr memory me space to ek he baar lena chahiye
+// tha kyun ki function to ek he hai aur function run hone ka traika bhi change nhi ho raha 
+// andar ki value change ho rahi hai bus isse aacha to line no 67 tha qki function to ek 
+// tha aur memory bhi bs ek baar le rha tha aur hum use usko multiple baar use kr pa rahe the
+// optimized good coder ke liye ye acchi baat nhi hai koi bhi function agar use multiple time ho raha 
+// hai but function same hai to code aisa hona chahiye ki function create hum sirf ek baar kare aur
+// use multiple time ho lekin Memory me space sirf 1 time use ho taki codebase humara lightweight rahe
