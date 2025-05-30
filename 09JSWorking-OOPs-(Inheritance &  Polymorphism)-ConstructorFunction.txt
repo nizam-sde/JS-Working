@@ -1,0 +1,80 @@
+// last class me constructor function padha kya hota hai aur kab need hoti hai but constructor function
+// ko sikhne se pehle koi aur arika bhi hai kya jisse same chiz ko solve kr sake pehle wo padhte hai
+ // fir constructor function padhenge
+
+ function getBirthYear (age) {
+    return new Date().getFullYear() - user.age
+ }
+
+ function createUser (name, age, city) {         
+    const user = {
+        name,
+        age,
+        city,
+        getBirthYear,
+    }
+
+    return user
+}
+
+const user1 = createUser('Nizam', 21 , 'dhanabad')
+const user2 = createUser('Isha', 20 , 'Aligarh')
+
+// agar ab call kr ke dekhe 
+user1.getBirthYear  //output pura getBirthYear return krega
+
+user1.getBirthYear()  //output function ko call kr diya to error aa jayega user is not defined
+// aisa isliye hua kyunki getBirthYear function jo hai wo khud to global variable hai but usme user.age
+// wo to block level scoped hai under createUser usko scope block ke bahar hai he nhi isliye
+// getBirthYear user ko access he nhi kr pa raha hai
+
+// this is a keyword in javascript provided by our browser, and we can use this globally
+// so basically this vary krte rehte hai jiske sath bhi hum use kare ye uski he values and properties
+// represent krne lagta hai so getBirthYear ko kuch aise likhenge
+
+ function getBirthYear (age) {
+    return new Date().getFullYear() - this.age
+ }
+
+after this if we call user1.getBirthYear() // we will get the desired ans
+
+also user1.getBirthYear === user2.getBirthYear // true 
+
+// because memory me ek he baar store hua hai aur function to ek he hai jo use ho raha har jagah
+// hum sirf use multiple user ke sath use kr rhe function ko
+
+// this keyword use kr ke humne Polymorphism achieve kr liya , function ek aur roop anaek jiske sath
+// use karo uske rang me dhal gya but isse issue ye create ho gya ki humne kyun ki usko gloabal 
+// obj bana diya to bahar global me koi use kr le galti se to output NAN(Not a Number) aajayega 
+//  (Encapsulation) padha tha humne, global space ko pollute kr diya humne iski wjah se
+// (Abstraction) hiding the complexity in code , pr ye dono rule break kr diya humne
+
+// second method 
+
+function createUser (name, age, city) {         
+    const user = {
+        name,
+        age,
+        city,
+        getBirthYear: createUser.commonMethods.getBirthYear
+    }
+
+    return user
+}
+
+createUser.commonMethods ={
+    getBirthYear(){
+        return new Date().getFullYear() - this.age
+    },
+}
+
+user1.getBirthYear === user2.getBirthYear //output true
+
+//in this case it will return true because we added the function inside createUser using commonMethods
+
+// new keyword
+
+function sayHello(){
+
+}
+if we call new sayHello() //it will create a new sayHello object as well as it return the new obj too
