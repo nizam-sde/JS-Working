@@ -1,0 +1,100 @@
+// in js Everything is an object
+
+const user = {
+    fName : 'Mohammad',
+    lName : 'Nizam',
+    getFullName(){
+        return `${this.fName} ${this.lName}`;
+    },
+};
+
+console.log(user.getFullName() ); //output Mohammad Nizam
+
+// Inheritance
+
+const user2 = Object.create(user);  //by doing this we inherit the properties of user
+
+console.log(user2); // output {} // empty object
+
+console.log(user2.getFullName() ); //output Mohammad Nizam 
+// so basically it mean we can use now user's properties by inheriting in user2 and access them using .
+
+// this is all due to prototype
+
+// for example humne koi propertie call ki like user.fName to sb se pehle wo object ke andar access 
+// krne ki kosis krega ki aisi koi propertie hai fName se milti hai to print kr dega aur aage badh jayega 
+// nhi milti to fir try karege inside __Proto__:{} iske andar propertie mili to well and good nhi to
+//  as usuall error throw kregi js ki called propertie exist he nhi krti 
+
+
+// but jab humne Object.create(user) kiya user2 me to prototypal Inheritance ki wjah se hum log
+// user2 me bhi .getFullName use kr paye (line no 19)
+// to ye visual me kuch aisa dikhega
+
+user2 = {
+    __Proto__: user
+}   
+
+// aur bas isi wjah se sari properties accessable thi user2 ko bhi 
+
+user2.__Proto__.fName = "Isha";     
+// if we do this and console.log(user.fName) //output Isha 
+// it was a reference only so original bhi change ho gya aur output Mohammad se Isha me change ho gya
+
+
+let yourName = 'Nizam'
+let yourAge = 21
+
+yourName. 
+yourAge.
+//using dot how we able to use methods jb wo simple string ya number wo to object bhi nhi hai
+
+// js me ek Wrapper class hoti hai
+//normally number string etc primitive data types hai
+
+// but jaise he humne let yourName = 'Nizam' kiya js usko wrapper class ki maddat se 
+// let yourName = new String('Nizam') //  kuch aisa background me bana deta hai jiski wjah se humlog
+// . laga kr wo toUpperCase etc methods use kr pate hai
+// so to verify this we can check this by 
+console.log(yourName.__Proto__) // we will get a string and when we open up in browser console we will
+                                // be able to see all string methods
+
+console.log(yourName.at(2)) // output z
+// prototypal Inheritance se usko properties milti hai, first wo string me check krega at aisa kuch nhi
+// milega then wo __Proto__ me jayega apni string class pr waha usko at method mil jayega aur
+// uski help se z print kr dega
+
+const fName = new String()
+fName__proto__ = String.prototype // fname ka jo __Proto__ hai wo String ke prototype ke barabar ho jayega
+
+// ab agar khud ka prototypal Inheritance banana ho to hum easily aise bana payenge
+
+const p1 = {
+    x1: "I'm inside p1"
+};
+const p2 = {
+    x2: "I'm inside p2",
+    __Proto__:p1,       // prototypal Inheritance towards p1
+};
+
+p2.x1 // output I'm inside p1 // hum use kr paye p2 me qki iska Inheritance towards p1 hai to p1 ke
+        // methods and properties sab p2 ke pass as __Proto__ aa gye
+
+// Thats the reason any class or anything in JavaScript is object due to prototypal Inheritance
+// if we continue keep checking of __Proto__ at last we found object.
+
+// keep notes:- unnessarily intrupting __Proto__ can introduce bug to your codebase 
+// __Proto__ is for objects and prototype is for base class
+
+class student{
+    constructor(){
+
+    }
+    getName(){
+        return "Hello Nizam Kaise Ho Aap..."
+    }
+}
+
+const s1 = {__Proto__ : student.prototype}      // just to show use of __Proto__ and prototype
+// in the above line what we did is s1 ke __Proto__ ko student class ke prototype ke barabar kr diya
+// in simple language s1 ka __Proto__ point kr rha hai towards student class ke prototype pr
