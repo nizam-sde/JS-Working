@@ -1,0 +1,31 @@
+// we are going to build our own promise
+// if promises were never existed in JS , to khud ka promise banate hum log
+// we are doing this just to improve our logic in js regarding andling asynchronous operations 
+// like API calls, file loading, or time delays easier.
+
+// Promise - A Promise in JavaScript is an object representing the eventual completion (or failure) 
+//           of an asynchronous operation.
+// Promise ke only 3 state hote hai, pending, resolved, rejected
+
+// its like maine bola aaj bahar ka mausam kaisa hai, but you are inside how and does'nt know the
+// whether condition so you game me a promise ki mein check krke aata hu fir aapko pakka batanuga
+// whether isiko promise kehte hai JavaScript me, when you came back after and shared the details
+// you set the state of promise fullfiled by your end by answering me the whether
+
+// syntax example for promise -
+
+function pizzaKhilaDo() {
+    return new Promise( (resolve, reject) =>{
+            // your logic code goes here
+            resolve(value) //here we pass the value with res, rej as per desired need
+    })
+}
+
+pizzaKhilaDo()  //calling function
+    .then( () => {})      //resolve hone pr kya kre we pass here
+    .catch( (err) =>{})   // error ke case me kya show krna hai ya kya message bhejna hai we do with it
+    .finally( ()=>{})     // finally we use to declear our last verdict or direction what we want to share
+
+    // above was the complete syntax of uses of promise in js
+
+    //in the next part2 of this chapter we will see our own buit promise 
